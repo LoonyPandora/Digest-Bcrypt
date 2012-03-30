@@ -17,7 +17,7 @@ or through the Digest meta-module. Using the latter is recommended.
 
     # via the Digest module (recommended)
     use Digest;
- 
+
     my $bcrypt = Digest->new('Bcrypt');
 
     # $cost is an integer between 1 and 31
@@ -39,9 +39,8 @@ or through the Digest meta-module. Using the latter is recommended.
     # Using the module directly (same interface as above)
 
     use Digest::Bcrypt;
- 
-    my $bcrypt = Digest::Bcrypt->new();
 
+    my $bcrypt = Digest::Bcrypt->new();
 
 =cut
 
