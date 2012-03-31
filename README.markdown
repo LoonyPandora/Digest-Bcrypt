@@ -6,7 +6,7 @@ Digest::Bcrypt - Perl interface to the bcrypt algorithm
 
 Provides an interface to the bcrypt hash algorithm.
 
-This module subclasses [Digest::base](http://search.cpan.org/perldoc?Digest::base) and can be used either directly
+This module subclasses [Digest::base](https://metacpan.org/module/Digest::base) and can be used either directly
 or through the Digest meta-module. Using the latter is recommended.
 
 # USAGE
@@ -41,7 +41,7 @@ or through the Digest meta-module. Using the latter is recommended.
 # METHODS
 
 The object-oriented interface to `Digest::Bcrypt` is mostly
-identical to that of [Digest](http://search.cpan.org/perldoc?Digest), with a few additions.
+identical to that of [Digest](https://metacpan.org/module/Digest), with a few additions.
 
 Notably you __must__ set a `salt` exactly 16 octets in length,
 and you must provide a `cost` in the range `'1'..'31'`
@@ -116,7 +116,7 @@ Resets the object to the same internal state it was in when it was constructed.
 
 Sets the value to be used as a salt. Bcrypt requires __exactly__ 16 octets of salt
 
-It is recommenced that you use a module like [Data::Entropy::Algorithms](http://search.cpan.org/perldoc?Data::Entropy::Algorithms) to
+It is recommenced that you use a module like [Data::Entropy::Algorithms](https://metacpan.org/module/Data::Entropy::Algorithms) to
 provide a truly randomised salt.
 
 When called with no arguments, will return the whatever is the current salt
@@ -127,14 +127,14 @@ When called with no arguments, will return the whatever is the current salt
 
 An integer in the range `'1'..'31'`, this is required.
 
-See [Crypt::Eksblowfish::Bcrypt](http://search.cpan.org/perldoc?Crypt::Eksblowfish::Bcrypt) for a detailed description of `cost`
+See [Crypt::Eksblowfish::Bcrypt](https://metacpan.org/module/Crypt::Eksblowfish::Bcrypt) for a detailed description of `cost`
 in the context of the bcrypt algorithm.
 
 When called with no arguments, will return the current cost
 
 # SEE ALSO
 
-[Digest](http://search.cpan.org/perldoc?Digest), [Crypt::Eksblowfish::Bcrypt](http://search.cpan.org/perldoc?Crypt::Eksblowfish::Bcrypt)
+[Digest](https://metacpan.org/module/Digest), [Crypt::Eksblowfish::Bcrypt](https://metacpan.org/module/Crypt::Eksblowfish::Bcrypt)
 
 
 
