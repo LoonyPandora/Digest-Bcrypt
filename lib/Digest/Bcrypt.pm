@@ -13,6 +13,8 @@ Provides an interface to the bcrypt hash algorithm.
 This module subclasses L<Digest::base> and can be used either directly
 or through the Digest meta-module. Using the latter is recommended.
 
+It is mostly a wrapper around L<Crypt::Eksblowfish::Bcrypt>.
+
 =head1 USAGE
 
     # via the Digest module (recommended)
