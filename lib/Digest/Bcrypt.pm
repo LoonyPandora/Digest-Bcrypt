@@ -210,11 +210,8 @@ When called with no arguments, will return the whatever is the current salt
 sub salt {
     my ($self, $salt) = @_;
 
-    if (defined $salt) {        
-        use bytes;
-        if (length $salt != 16) {
-            croak "Salt must be exactly 16 octets long";
-        }
+    if (defined $salt) {
+        $self->_check_salt($salt);
 
         $self->{salt} = $salt;
         return $self;
@@ -240,14 +237,10 @@ sub cost {
     my ($self, $cost) = @_;
     
     if (defined $cost) {
+        $self->_check_cost($cost);
+
         # bcrypt requires 2 digit costs, it dies if it's a single digit.
-        $cost = sprintf("%02d", $cost);
-
-        if ($cost < 1 || $cost > 31) {
-            croak "Cost must be an integer between 1 and 31";
-        }
-
-        $self->{cost} = $cost;
+        $self->{cost} = sprintf("%02d", $cost);
         return $self;
     }
 
@@ -259,13 +252,8 @@ sub cost {
 sub _digest {
     my $self = shift;
 
-    if ($self->cost < 1 || $self->cost > 31) {
-        croak "Cost must be an integer between 1 and 31";
-    }
-
-    if (!$self->salt) {
-        croak "Salt must be specified";
-    }
+    $self->_check_cost;
+    $self->_check_salt;
 
     my $hash = bcrypt_hash({
         key_nul => 1,
@@ -277,6 +265,33 @@ sub _digest {
 
     return $hash;
 }
+
+
+# Checks that the cost is an integer in the range 1-31. Croaks if it isn't
+sub _check_cost {
+    my ($self, $cost) = @_;
+
+    $cost //= $self->cost;
+
+    if (!defined $cost || $cost !~ /^\d+$/ || ($cost < 1 || $cost > 31)) {
+        croak "Cost must be an integer between 1 and 31";
+    }
+}
+
+
+# Checks that the salt exactly 16 octets long. Croaks if it isn't
+sub _check_salt {
+    my ($self, $salt) = @_;
+
+    $salt //= $self->salt;
+
+    use bytes;
+    if (!defined $salt || length $salt != 16) {
+        croak "Salt must be exactly 16 octets long";
+    }
+    no bytes;
+}
+
 
 1;
 

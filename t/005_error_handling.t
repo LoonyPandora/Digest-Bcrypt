@@ -76,4 +76,4 @@ eval {
     $ctx->digest;
 };
 
-like $@, qr/Salt must be specified/i, 'Dies when no salt specified';
+like $@, qr/Salt must be exactly 16 octets long/i, 'Dies when no salt specified';
