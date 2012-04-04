@@ -1,3 +1,16 @@
+0.1.1   2012-04-04
+
+    [ DOCUMENTATION ]
+    * Fixed typos in base64 method description
+
+    [ FEATURE ]
+    * Improved handling of cases where the cost / salt methods
+      have never been called
+
+    [ TESTS ]
+    * Improved error handling tests
+
+
 0.1.0   2012-03-31
 
     ** First Public Release **

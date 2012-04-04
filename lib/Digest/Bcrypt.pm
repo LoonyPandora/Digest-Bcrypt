@@ -53,7 +53,7 @@ use parent 'Digest::base';
 use Carp qw(croak);
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 
-our $VERSION = '0.1.0';
+our $VERSION = '0.1.1';
 
 =head1 METHODS
 
