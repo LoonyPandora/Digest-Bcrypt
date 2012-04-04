@@ -84,24 +84,6 @@ sub new {
 }
 
 
-=head2 clone
-
-    my $bcrypt->clone;
-
-Creates a clone of the C<Digest::Bcrypt> object, and returns it.
-
-=cut
-
-sub clone {
-    my $self = shift;
-
-    return bless {
-        cost    => $self->cost,
-        salt    => $self->salt,
-        _buffer => $self->{_buffer},
-    }, ref($self);
-}
-
 =head2 add
 
     $bcrypt->add("a"); $bcrypt->add("b"); $bcrypt->add("c");
@@ -122,6 +104,62 @@ sub add {
 
     return $self;
 }
+
+
+=head2 salt
+
+    $bcrypt->salt($salt);
+
+Sets the value to be used as a salt. Bcrypt requires B<exactly> 16 octets of salt
+
+It is recommenced that you use a module like L<Data::Entropy::Algorithms> to
+provide a truly randomised salt.
+
+When called with no arguments, will return the whatever is the current salt
+
+=cut
+
+sub salt {
+    my ($self, $salt) = @_;
+
+    if (defined $salt) {
+        $self->_check_salt($salt);
+
+        $self->{salt} = $salt;
+        return $self;
+    }
+
+    return $self->{salt};
+}
+
+
+=head2 cost
+
+    $bcrypt->cost($cost);
+
+An integer in the range C<'1'..'31'>, this is required.
+
+See L<Crypt::Eksblowfish::Bcrypt> for a detailed description of C<cost>
+in the context of the bcrypt algorithm.
+
+When called with no arguments, will return the current cost
+
+=cut
+
+sub cost {
+    my ($self, $cost) = @_;
+    
+    if (defined $cost) {
+        $self->_check_cost($cost);
+
+        # bcrypt requires 2 digit costs, it dies if it's a single digit.
+        $self->{cost} = sprintf("%02d", $cost);
+        return $self;
+    }
+
+    return $self->{cost};
+}
+
 
 =head2 digest
 
@@ -175,6 +213,24 @@ sub b64digest {
 }
 
 
+=head2 clone
+
+    my $bcrypt->clone;
+
+Creates a clone of the C<Digest::Bcrypt> object, and returns it.
+
+=cut
+
+sub clone {
+    my $self = shift;
+
+    return bless {
+        cost    => $self->cost,
+        salt    => $self->salt,
+        _buffer => $self->{_buffer},
+    }, ref($self);
+}
+
 
 =head2 reset
 
@@ -194,58 +250,6 @@ sub reset {
     return $self->new;
 }
 
-=head2 salt
-
-    $bcrypt->salt($salt);
-
-Sets the value to be used as a salt. Bcrypt requires B<exactly> 16 octets of salt
-
-It is recommenced that you use a module like L<Data::Entropy::Algorithms> to
-provide a truly randomised salt.
-
-When called with no arguments, will return the whatever is the current salt
-
-=cut
-
-sub salt {
-    my ($self, $salt) = @_;
-
-    if (defined $salt) {
-        $self->_check_salt($salt);
-
-        $self->{salt} = $salt;
-        return $self;
-    }
-
-    return $self->{salt};
-}
-
-=head2 cost
-
-    $bcrypt->cost($cost);
-
-An integer in the range C<'1'..'31'>, this is required.
-
-See L<Crypt::Eksblowfish::Bcrypt> for a detailed description of C<cost>
-in the context of the bcrypt algorithm.
-
-When called with no arguments, will return the current cost
-
-=cut
-
-sub cost {
-    my ($self, $cost) = @_;
-    
-    if (defined $cost) {
-        $self->_check_cost($cost);
-
-        # bcrypt requires 2 digit costs, it dies if it's a single digit.
-        $self->{cost} = sprintf("%02d", $cost);
-        return $self;
-    }
-
-    return $self->{cost};
-}
 
 
 # Returns the raw bcrypt digest and resets the object
