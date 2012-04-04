@@ -146,7 +146,7 @@ sub digest {
 
 Same as L</"digest">, but will return the digest in hexadecimal form.
 
-The C<length> of the returned string will be 42 and will only contain
+The C<length> of the returned string will be 46 and will only contain
 characters from the ranges C<'0'..'9'> and C<'a'..'f'>.
 
 =cut
@@ -154,7 +154,7 @@ characters from the ranges C<'0'..'9'> and C<'a'..'f'>.
 
 =head2 b64digest
 
-    $bcrypt->hexdigest;
+    $bcrypt->b64digest;
 
 Same as L</"digest">, but will return the digest base64 encoded.
 
@@ -210,7 +210,7 @@ When called with no arguments, will return the whatever is the current salt
 sub salt {
     my ($self, $salt) = @_;
 
-    if ($salt) {        
+    if (defined $salt) {        
         use bytes;
         if (length $salt != 16) {
             croak "Salt must be exactly 16 octets long";
@@ -238,13 +238,16 @@ When called with no arguments, will return the current cost
 
 sub cost {
     my ($self, $cost) = @_;
+    
+    if (defined $cost) {
+        # bcrypt requires 2 digit costs, it dies if it's a single digit.
+        $cost = sprintf("%02d", $cost);
 
-    if ($cost) {
-        if ($cost !~ /^\d+$/ || $cost > 31 || $cost < 1) {
+        if ($cost < 1 || $cost > 31) {
             croak "Cost must be an integer between 1 and 31";
         }
 
-        $self->{cost} = sprintf("%02d", $cost);;
+        $self->{cost} = $cost;
         return $self;
     }
 
@@ -255,6 +258,14 @@ sub cost {
 # Returns the raw bcrypt digest and resets the object
 sub _digest {
     my $self = shift;
+
+    if ($self->cost < 1 || $self->cost > 31) {
+        croak "Cost must be an integer between 1 and 31";
+    }
+
+    if (!$self->salt) {
+        croak "Salt must be specified";
+    }
 
     my $hash = bcrypt_hash({
         key_nul => 1,
