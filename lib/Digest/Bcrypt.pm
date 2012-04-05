@@ -61,7 +61,7 @@ The object-oriented interface to C<Digest::Bcrypt> is mostly
 identical to that of L<Digest>, with a few additions.
 
 Notably you B<must> set a C<salt> exactly 16 octets in length,
-and you must provide a C<cost> in the range C<'1'..'31'>
+and you B<must> provide a C<cost> in the range C<'1'..'31'>.
 
 =head2 new
 
@@ -148,7 +148,7 @@ When called with no arguments, will return the current cost
 
 sub cost {
     my ($self, $cost) = @_;
-    
+
     if (defined $cost) {
         $self->_check_cost($cost);
 
