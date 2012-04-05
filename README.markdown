@@ -9,7 +9,7 @@ Provides an interface to the bcrypt hash algorithm.
 This module subclasses [Digest::base](https://metacpan.org/module/Digest::base) and can be used either directly
 or through the Digest meta-module. Using the latter is recommended.
 
-It is mostly a wrapper around L<Crypt::Eksblowfish::Bcrypt>.
+It is mostly a wrapper around [Crypt::Eksblowfish::Bcrypt](https://metacpan.org/module/Crypt::Eksblowfish::Bcrypt).
 
 # USAGE
 
@@ -46,7 +46,7 @@ The object-oriented interface to `Digest::Bcrypt` is mostly
 identical to that of [Digest](https://metacpan.org/module/Digest), with a few additions.
 
 Notably you __must__ set a `salt` exactly 16 octets in length,
-and you must provide a `cost` in the range `'1'..'31'`
+and you __must__ provide a `cost` in the range `'1'..'31'`.
 
 ## new
 
@@ -58,12 +58,6 @@ You can also use this module directly
 
     my $bcrypt = Digest::Bcrypt->new();
 
-## clone
-
-    my $bcrypt->clone;
-
-Creates a clone of the `Digest::Bcrypt` object, and returns it.
-
 ## add
 
     $bcrypt->add("a"); $bcrypt->add("b"); $bcrypt->add("c");
@@ -74,43 +68,6 @@ Creates a clone of the `Digest::Bcrypt` object, and returns it.
 Adds data to the message we are calculating the digest for.
 
 All the above examples have the same effect
-
-## digest
-
-    $bcrypt->digest;
-
-Return the binary digest for the message.
-
-The returned string will be 23 bytes long.
-
-## hexdigest
-
-    $bcrypt->hexdigest;
-
-Same as ["digest"](#digest), but will return the digest in hexadecimal form.
-
-The `length` of the returned string will be 42 and will only contain
-characters from the ranges `'0'..'9'` and `'a'..'f'`.
-
-## b64digest
-
-    $bcrypt->hexdigest;
-
-Same as ["digest"](#digest), but will return the digest base64 encoded.
-
-The `length` of the returned string will be 31 and will only contain characters 
-from the ranges `'0'..'9'`, `'A'..'Z'`, `'a'..'z'`, `'+'`, and `'.'`
-
-The base64 encoded string returned is not padded to be a multiple of 4 bytes long.
-
-_Note:_ bcrypt uses it's own non-standard base64 alphabet,
-replacing `'/'` with `'.'`
-
-## reset
-
-    $bcrypt->reset;
-
-Resets the object to the same internal state it was in when it was constructed.
 
 ## salt
 
@@ -133,6 +90,49 @@ See [Crypt::Eksblowfish::Bcrypt](https://metacpan.org/module/Crypt::Eksblowfish:
 in the context of the bcrypt algorithm.
 
 When called with no arguments, will return the current cost
+
+## digest
+
+    $bcrypt->digest;
+
+Return the binary digest for the message.
+
+The returned string will be 23 bytes long.
+
+## hexdigest
+
+    $bcrypt->hexdigest;
+
+Same as ["digest"](#digest), but will return the digest in hexadecimal form.
+
+The `length` of the returned string will be 46 and will only contain
+characters from the ranges `'0'..'9'` and `'a'..'f'`.
+
+## b64digest
+
+    $bcrypt->b64digest;
+
+Same as ["digest"](#digest), but will return the digest base64 encoded.
+
+The `length` of the returned string will be 31 and will only contain characters 
+from the ranges `'0'..'9'`, `'A'..'Z'`, `'a'..'z'`, `'+'`, and `'.'`
+
+The base64 encoded string returned is not padded to be a multiple of 4 bytes long.
+
+_Note:_ bcrypt uses it's own non-standard base64 alphabet,
+replacing `'/'` with `'.'`
+
+## clone
+
+    my $bcrypt->clone;
+
+Creates a clone of the `Digest::Bcrypt` object, and returns it.
+
+## reset
+
+    $bcrypt->reset;
+
+Resets the object to the same internal state it was in when it was constructed.
 
 # SEE ALSO
 
