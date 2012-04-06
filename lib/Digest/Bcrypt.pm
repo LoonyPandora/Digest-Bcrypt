@@ -318,7 +318,7 @@ sub _check_salt {
 
 =head1 SEE ALSO
 
-L<Digest>, L<Crypt::Eksblowfish::Bcrypt>
+L<Digest>, L<Crypt::Eksblowfish::Bcrypt>, L<Data::Entropy::Algorithms>
 
 
 =head1 AUTHOR
