@@ -291,7 +291,7 @@ sub _digest {
 sub _check_cost {
     my ($self, $cost) = @_;
 
-    $cost //= $self->cost;
+    $cost = defined $cost ? $cost : $self->cost;
 
     if (!defined $cost || $cost !~ /^\d+$/ || ($cost < 1 || $cost > 31)) {
         croak "Cost must be an integer between 1 and 31";
@@ -303,7 +303,7 @@ sub _check_cost {
 sub _check_salt {
     my ($self, $salt) = @_;
 
-    $salt //= $self->salt;
+    $salt = defined $salt ? $salt : $self->salt;
 
     use bytes;
     if (!defined $salt || length $salt != 16) {
