@@ -149,7 +149,7 @@ Resets the object to the same internal state it was in when it was constructed.
 
 # SEE ALSO
 
-[Digest](https://metacpan.org/module/Digest), [Crypt::Eksblowfish::Bcrypt](https://metacpan.org/module/Crypt::Eksblowfish::Bcrypt)
+[Digest](https://metacpan.org/module/Digest), [Crypt::Eksblowfish::Bcrypt](https://metacpan.org/module/Crypt::Eksblowfish::Bcrypt), [Data::Entropy::Algorithms](https://metacpan.org/module/Data::Entropy::Algorithms)
 
 
 
