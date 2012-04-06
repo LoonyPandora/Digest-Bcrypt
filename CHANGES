@@ -1,3 +1,26 @@
+1.0.0   2012-04-07
+
+    [ BUGFIX ]
+    * Remove accidental dependency on perl 5.10
+      introduced in previous revision
+
+    [ FEATURE ]      
+    * bcrypt_b64digest method added to return digest
+      base64 encoded using the base 64 alphabet commonly
+      used with bcrypt
+
+    * b64digest method now returns a base64 that is
+      compatible with the standard MIME alphabet.
+
+      To access the version of base64 commonly used with
+      bcrypt, use the new bcrypt_b64digest method
+
+      This is a backwards incompatible change
+
+    [ TESTS ]
+    * Added additional tests for new methods
+
+
 0.1.1   2012-04-05
 
     [ DOCUMENTATION ]
