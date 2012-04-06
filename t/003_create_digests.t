@@ -1,4 +1,4 @@
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 use strict;
 use warnings;
@@ -31,4 +31,11 @@ $ctx->add($secret);
 $ctx->salt($salt);
 $ctx->cost($cost);
 
-ok($ctx->b64digest eq 'dIa9zl7nOwQ6pVqHC.i98M8chDXMGna', "Creates Base 64 Digest");
+ok($ctx->b64digest eq 'fKc/1n9pQyS8rXsJEAk/+O+ejFZOIpc', "Creates Base 64 Digest");
+
+
+$ctx->add($secret);
+$ctx->salt($salt);
+$ctx->cost($cost);
+
+ok($ctx->bcrypt_b64digest eq 'dIa9zl7nOwQ6pVqHC.i98M8chDXMGna', "Creates Bcrypt Base 64 Digest");

@@ -1,4 +1,4 @@
-use Test::More tests => 2;
+use Test::More tests => 3;
 
 use strict;
 use warnings;
@@ -12,6 +12,7 @@ my $cost   = 1;
 # Object is reset after each hash is generated
 my $ctx = Digest::Bcrypt->new;
 
+can_ok($ctx, qw/new clone add digest hexdigest b64digest bcrypt_b64digest salt reset/);
 
 $ctx->add($secret);
 $ctx->salt($salt);
