@@ -34,7 +34,7 @@ It is mostly a wrapper around L<Crypt::Eksblowfish::Bcrypt>.
     $digest = $bcrypt->hexdigest;
     $digest = $bcrypt->b64digest;
 
-    # bcrypt's own non-standard base64 dictionary that replaces + with .
+    # bcrypt's own non-standard base64 dictionary
     $digest = $bcrypt->bcrypt_b64digest;
 
     # [...]
@@ -217,8 +217,8 @@ from the ranges C<'0'..'9'>, C<'A'..'Z'>, C<'a'..'z'>, C<'+'>, and C<'.'>
 
 The base64 encoded string returned is not padded to be a multiple of 4 bytes long.
 
-I<Note:> This is bcrypt's own non-standard base64 alphabet, replacing C<'/'> with C<'.'>
-It is B<not> compatible with the standard MIME base64 encoding.
+I<Note:> This is bcrypt's own non-standard base64 alphabet, It is B<not>
+compatible with the standard MIME base64 encoding.
 
 =cut
 
