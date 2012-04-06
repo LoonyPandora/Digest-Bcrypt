@@ -32,9 +32,10 @@ It is mostly a wrapper around L<Crypt::Eksblowfish::Bcrypt>.
 
     $digest = $bcrypt->digest;
     $digest = $bcrypt->hexdigest;
-
-    # bcrypt uses a non-standard base64 dictionary that replaces + with .
     $digest = $bcrypt->b64digest;
+
+    # bcrypt's own non-standard base64 dictionary that replaces + with .
+    $digest = $bcrypt->bcrypt_b64digest;
 
     # [...]
 
@@ -197,16 +198,31 @@ characters from the ranges C<'0'..'9'> and C<'a'..'f'>.
 Same as L</"digest">, but will return the digest base64 encoded.
 
 The C<length> of the returned string will be 31 and will only contain characters 
+from the ranges C<'0'..'9'>, C<'A'..'Z'>, C<'a'..'z'>, C<'+'>, and C<'/'>
+
+The base64 encoded string returned is not padded to be a multiple of 4 bytes long.
+
+=cut
+
+
+=head2 bcrypt_b64digest
+
+    $bcrypt->bcrypt_b64digest;
+
+Same as L</"digest">, but will return the digest base64 encoded using the alphabet 
+that is commonly used with bcrypt.
+
+The C<length> of the returned string will be 31 and will only contain characters 
 from the ranges C<'0'..'9'>, C<'A'..'Z'>, C<'a'..'z'>, C<'+'>, and C<'.'>
 
 The base64 encoded string returned is not padded to be a multiple of 4 bytes long.
 
-I<Note:> bcrypt uses it's own non-standard base64 alphabet,
-replacing C<'/'> with C<'.'>
+I<Note:> This is bcrypt's own non-standard base64 alphabet, replacing C<'/'> with C<'.'>
+It is B<not> compatible with the standard MIME base64 encoding.
 
 =cut
 
-sub b64digest {
+sub bcrypt_b64digest {
     my $self = shift;
 
     return en_base64($self->_digest);
