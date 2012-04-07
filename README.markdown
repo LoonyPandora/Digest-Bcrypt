@@ -1,10 +1,10 @@
 # NAME
 
-Digest::Bcrypt - Perl interface to the bcrypt algorithm
+Digest::Bcrypt - Perl interface to the bcrypt digest algorithm
 
 # SYNOPSIS
 
-Provides an interface to the bcrypt hash algorithm.
+Provides an interface to the bcrypt digest algorithm.
 
 This module subclasses [Digest::base](https://metacpan.org/module/Digest::base) and can be used either directly
 or through the Digest meta-module. Using the latter is recommended.
