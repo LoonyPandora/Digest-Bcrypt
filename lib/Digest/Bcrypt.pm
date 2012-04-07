@@ -1,14 +1,14 @@
 package Digest::Bcrypt;
 
-# ABSTRACT: Perl interface to the bcrypt algorithm
+# ABSTRACT: Perl interface to the bcrypt digest algorithm
 
 =head1 NAME
 
-Digest::Bcrypt - Perl interface to the bcrypt algorithm
+Digest::Bcrypt - Perl interface to the bcrypt digest algorithm
 
 =head1 SYNOPSIS
 
-Provides an interface to the bcrypt hash algorithm.
+Provides an interface to the bcrypt digest algorithm.
 
 This module subclasses L<Digest::base> and can be used either directly
 or through the Digest meta-module. Using the latter is recommended.
@@ -54,7 +54,7 @@ use parent 'Digest::base';
 use Carp qw(croak);
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 
-our $VERSION = '0.1.1';
+our $VERSION = '1.0.1';
 
 =head1 METHODS
 
