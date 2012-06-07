@@ -1,10 +1,11 @@
-use Test::More tests => 12;
+use Test::More tests => 14;
 
 use strict;
 use warnings;
 
 use Digest;
 use Digest::Bcrypt;
+use Scalar::Util qw(refaddr);
 
 my $secret = "Super Secret Squirrel";
 my $salt   = "   known salt   ";
@@ -24,6 +25,9 @@ ok($direct->cost == $cost, "Reads cost correctly");
 
 
 my $direct_clone = $direct->clone;
+
+isnt( refaddr $direct, refaddr $direct_clone, "Cloning creates a new Digest::Bcrypt object" );
+
 $direct_clone->salt('  unknown salt  ');
 $direct_clone->cost('2');
 
@@ -46,6 +50,9 @@ ok($indirect->cost == $cost, "Indirect object reads cost correctly");
 
 
 my $indirect_clone = $indirect->clone;
+
+isnt( refaddr $indirect, refaddr $indirect_clone, "Cloning creates a new Digest::Bcrypt object" );
+
 $indirect_clone->salt('  unknown salt  ');
 $indirect_clone->cost('2');
 
